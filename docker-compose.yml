@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  mariadb:
+    image: mariadb:10.8.2
+    ports:
+      - "3306:3306"
+    env_file:
+      - .env
+    networks:
+      - backend
+    restart: on-failure
+
+networks:
+  backend:
