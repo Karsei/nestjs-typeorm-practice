@@ -1,11 +1,13 @@
 import {
   Column,
   CreateDateColumn,
-  Entity,
+  Entity, JoinColumn, ManyToOne,
   PrimaryGeneratedColumn,
   Unique,
   UpdateDateColumn
 } from "typeorm";
+
+import { TeamEntity } from './team.entity';
 
 @Entity('User')
 @Unique(['email'])
@@ -22,6 +24,13 @@ export class UserEntity {
 
   @Column({ default: 0, comment: '나이' })
   age: number;
+
+  @ManyToOne(
+    (type) => TeamEntity,
+    (team) => team.user
+  )
+  @JoinColumn({ name: 'team_idx' })
+  team: TeamEntity;
 
   @CreateDateColumn({ name: 'create_at', comment: '생성일' })
   createdAt: Date;
